@@ -1573,6 +1573,14 @@ if ($manufacturer -like "*Dell*") {
         "Dell Optimizer"
         "Dell Power Manager"
         "DellOptimizerUI"
+        'Dell Optimizer Core',
+        'Dell SupportAssist Remediation',
+        'Dell SupportAssist OS Recovery Plugin for Dell Update',
+        'Dell Pair',
+        'Dell Display Manager 2.0',
+        'Dell Display Manager 2.1',
+        'Dell Display Manager 2.2',
+        'Dell Peripheral Manager',
         "Dell SupportAssist OS Recovery"
         "Dell SupportAssist"
         "Dell Optimizer Service"
