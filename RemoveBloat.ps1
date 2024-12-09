@@ -1463,6 +1463,64 @@ if ($manufacturer -like "*Dell*") {
 
 }
 
+# Define lists of applications to target for removal
+$DolbyApps = @(
+    "Dolby Vision Extensions",
+    "Dolby Digital Plus decoder for PC OEMs"
+)
+
+$IntelApps = @(
+    "Intel® Management and Security Status",
+    "Intel® Rapid Storage Technology Application",
+    "Intel® Unison™",
+    "Intel® Unison™ Drivers"
+)
+
+$KillerApps = @(
+    "Killer Intelligence Center",
+    "Killer Performance Driver Suite UWD"
+)
+
+# Function to uninstall applications
+function Uninstall-Applications {
+    param (
+        [string[]]$Apps
+    )
+
+    foreach ($app in $Apps) {
+        # Remove provisioned packages if applicable
+        if (Get-AppxProvisionedPackage -Online | Where-Object DisplayName -like $app -ErrorAction SilentlyContinue) {
+            Get-AppxProvisionedPackage -Online | Where-Object DisplayName -like $app | Remove-AppxProvisionedPackage -Online
+            Write-Output "Removed provisioned package for $app."
+        } else {
+            Write-Output "Provisioned package for $app not found."
+        }
+
+        # Remove app packages for all users
+        if (Get-AppxPackage -Name $app -ErrorAction SilentlyContinue) {
+            Get-AppxPackage -AllUsers -Name $app | Remove-AppxPackage -AllUsers
+            Write-Output "Removed $app."
+        } else {
+            Write-Output "$app not found."
+        }
+
+        # If there's a custom uninstallation function, you can call it here
+        # Example: UninstallAppFull -appName $app
+    }
+}
+
+# Uninstall Dolby Apps
+Write-Output "Starting removal of Dolby applications..."
+Uninstall-Applications -Apps $DolbyApps
+
+# Uninstall Intel Apps
+Write-Output "Starting removal of Intel applications..."
+Uninstall-Applications -Apps $IntelApps
+
+# Uninstall Killer Apps
+Write-Output "Starting removal of Killer applications..."
+Uninstall-Applications -Apps $KillerApps
+
 
 if ($manufacturer -like "Lenovo") {
     write-output "Lenovo detected"
