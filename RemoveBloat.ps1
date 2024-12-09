@@ -1470,10 +1470,10 @@ $DolbyApps = @(
 )
 
 $IntelApps = @(
-    "Intel® Management and Security Status",
-    "Intel® Rapid Storage Technology Application",
-    "Intel® Unison™",
-    "Intel® Unison™ Drivers"
+    "Intel Management and Security Status",
+    "Intel Rapid Storage Technology Application",
+    "Intel Unison",
+    "Intel Unison Drivers"
 )
 
 $KillerApps = @(
